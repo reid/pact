@@ -1,6 +1,6 @@
 # Pact
 
-A collection of macros for [Vows](http://vowsjs.org) that makes testing your Node.js `http.Server` easier.
+A collection of [Vows](http://vowsjs.org) macros for easy HTTP server testing.
 
 Tastes great with [Express](http://expressjs.com) and [Connect](http://senchalabs.github.com/connect/).
 
@@ -8,7 +8,7 @@ Works with [Node.js](http://nodejs.org/) v0.2.5 and later.
 
 ## Documentation
 
-<http://reid.github.com/pact/doc.html>
+<http://reid.github.com/pact/>
 
 ## Example
 
