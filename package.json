@@ -8,7 +8,7 @@
   ],
   "version": "0.0.1",
   "author": "Reid Burke <me@reidburke.com> (http://reidburke.com/)",
-  "main": "pact",
+  "main": "index",
   "directories": {
     "lib": "./lib"
   },
