@@ -1,12 +1,12 @@
 {
   "name": "pact",
-  "description": "Macros for Vows",
+  "description": "Vows macros for easy HTTP server testing.",
   "keywords" : [
     "Vows",
     "HTTP",
     "test"
   ],
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Reid Burke <me@reidburke.com> (http://reidburke.com/)",
   "main": "index",
   "directories": {
