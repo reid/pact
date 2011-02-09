@@ -7,10 +7,10 @@
 /**
  * Dependencies.
  */
-var assert = require("assert");
+var assert = require('assert');
 
-var http = require("./lib/http");
-var STATUS_CODES = require("http").STATUS_CODES;
+var http = require('./lib/http');
+var STATUS_CODES = require('http').STATUS_CODES;
 
 /**
  * A starting server port number.
@@ -19,8 +19,10 @@ var _port = 8099;
 
 /**
  * Factory for server port numbers.
+ *
+ * @return {Number} port A new port number.
  */
-function getPort () {
+function getPort() {
     return _port++;
 }
 
@@ -33,7 +35,8 @@ function getPort () {
  *
  * You can specify:
  *
- * - url: The path to request. Defaults to a path as the second word of a context.
+ * - url: The path to request. Defaults to a path as the second word of
+ *   a context.
  * - method: Defaults to GET.
  * - data: Request body for POST.
  *
@@ -47,7 +50,8 @@ function getPort () {
  *
  * Your test functions will recieve an object containing:
  *
- *  - body: The response body, which is an object if the response was application/json.
+ *  - body: The response body, which is an object if the response was
+ *    application/json.
  *  - status: HTTP status code.
  *  - headers: HTTP headers as an object, with headers in lowercase.
  *
@@ -55,47 +59,47 @@ function getPort () {
  *
  * For an example test function, {@see code}.
  *
- * @param {Object} req Request object
- * @return {Function} Topic function that makes the request
+ * @param {Object} req Request object.
+ * @return {Function} Topic function that makes the request.
  */
-function request (req) {
+function request(req) {
     var path, options = {
-        host : "localhost",
-        method : "GET"
+        host: 'localhost',
+        method: 'GET'
     };
     if (req) {
-        if ("url" in req) path = options.path = req.url;
-        if ("data" in req) options.body = req.data;
-        if ("method" in req) options.method = req.method;
+        if ('url' in req) path = options.path = req.url;
+        if ('data' in req) options.body = req.data;
+        if ('method' in req) options.method = req.method;
     }
-    return function (lastTopic) {
+    return function(lastTopic) {
         var vow = this;
         // try to find port number
         var port = Array.prototype.slice.call(arguments, -1)[0];
         if (!isNaN(port))
             options.port = port;
-        else throw new Error("Unable to determine port from topic.");
-        if ("function" === typeof path)
+        else throw new Error('Unable to determine port from topic.');
+        if ('function' === typeof path)
             options.path = path(lastTopic);
         else if (!path)
             options.path = vow.context.name.split(/ +/)[1];
         http.request(
             options
-        ).on("response", function X (res, results) {
+        ).on('response', function X(res, results) {
             var err = null;
             if (res.statusCode === 302) { // handle redirects
                 if (options._302) {
-                    err = "Redirect loop";
+                    err = 'Redirect loop';
                 } else {
                     options.path = res.headers.location;
                     options._302 = true;
-                    return http.request(options).on("response", X);
+                    return http.request(options).on('response', X);
                 }
             }
             vow.callback(err, {
-                body : results,
-                status : res.statusCode,
-                headers : res.headers
+                body: results,
+                status: res.statusCode,
+                headers: res.headers
             });
         });
     }
@@ -108,14 +112,14 @@ function request (req) {
  *
  * A topic function.
  *
- * @param {Object} `http.Server` instance
- * @return {Function} Topic function that starts the server
+ * @param {Object} server `http.Server` instance.
+ * @return {Function} Topic function that starts the server.
  */
-function httpify (server) {
+function httpify(server) {
     var port = getPort();
     return function() {
         var vows = this;
-        server.listen(port, "127.0.0.1", function (err) {
+        server.listen(port, '127.0.0.1', function(err) {
             vows.callback(err, port);
         });
     };
@@ -127,17 +131,17 @@ function httpify (server) {
  * A test function.
  *
  * @see httpify
- * @param {Number} status Expected HTTP status code
- * @return {Function} Test function that checks the status
+ * @param {Number} status Expected HTTP status code.
+ * @return {Function} Test function that checks the status.
  */
-function code (status) {
-    return function (lastTopic) {
-        assert.strictEqual(lastTopic.status, status, 
-            "Expected " + status
-                  + " " + STATUS_CODES[status]
-                  + ", received: " + lastTopic.status
-                  + " " + STATUS_CODES[lastTopic.status]
-                  + ".\n" + lastTopic.body
+function code(status) {
+    return function(lastTopic) {
+        assert.strictEqual(lastTopic.status, status,
+            'Expected ' + status +
+                  ' ' + STATUS_CODES[status] +
+                  ', received: ' + lastTopic.status +
+                  ' ' + STATUS_CODES[lastTopic.status] +
+                  '.\n' + lastTopic.body
         );
     };
 }
@@ -146,7 +150,7 @@ function code (status) {
  * Export these functions.
  */
 module.exports = {
-    code : code,
-    request : request,
-    httpify : httpify
-}; 
+    code: code,
+    request: request,
+    httpify: httpify
+};

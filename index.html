@@ -103,10 +103,10 @@ code .this { color: #19469D; }</style>
  </p>
 </td>
 <td class="code">
-<pre><code><span class="keyword">var</span> <span class="variable">assert</span> = <span class="variable">require</span>(<span class="string">"assert"</span>);
+<pre><code><span class="keyword">var</span> <span class="variable">assert</span> = <span class="variable">require</span>(<span class="string">'assert'</span>);
 
-<span class="keyword">var</span> <span class="variable">http</span> = <span class="variable">require</span>(<span class="string">"./lib/http"</span>);
-<span class="keyword">var</span> <span class="class">STATUS_CODES</span> = <span class="variable">require</span>(<span class="string">"http"</span>).<span class="class">STATUS_CODES</span>;</code></pre>
+<span class="keyword">var</span> <span class="variable">http</span> = <span class="variable">require</span>(<span class="string">'./lib/http'</span>);
+<span class="keyword">var</span> <span class="class">STATUS_CODES</span> = <span class="variable">require</span>(<span class="string">'http'</span>).<span class="class">STATUS_CODES</span>;</code></pre>
 </td>
 </tr>
 <tr class="code">
@@ -120,11 +120,14 @@ code .this { color: #19469D; }</style>
 </tr>
 <tr class="code">
 <td class="docs">
-<p>Factory for server port numbers.
- </p>
+<p>Factory for server port numbers.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>return</strong>: <em>Number</em>  port A new port number.</p></li></ul>
 </td>
 <td class="code">
-<pre><code><span class="keyword">function</span> <span class="variable">getPort</span> () {
+<pre><code><span class="keyword">function</span> <span class="variable">getPort</span>() {
     <span class="keyword">return</span> <span class="variable">_port</span>++;
 }</code></pre>
 </td>
@@ -139,7 +142,8 @@ object.</p>
 
 <p>You can specify:</p>
 
-<ul><li>url: The path to request. Defaults to a path as the second word of a context.</li><li>method: Defaults to GET.</li><li>data: Request body for POST.</li></ul>
+<ul><li>url: The path to request. Defaults to a path as the second word of
+a context.</li><li>method: Defaults to GET.</li><li>data: Request body for POST.</li></ul>
 
 <p>Instead of specifying <code>url</code> in <code>req</code>, you can make it the second word of
 your context. This lets you omit <code>req</code> completely, for example:</p>
@@ -151,7 +155,8 @@ your context. This lets you omit <code>req</code> completely, for example:</p>
 
 <p>Your test functions will recieve an object containing:</p>
 
-<ul><li>body: The response body, which is an object if the response was application/json.</li><li>status: HTTP status code.</li><li>headers: HTTP headers as an object, with headers in lowercase.</li></ul>
+<ul><li>body: The response body, which is an object if the response was
+application/json.</li><li>status: HTTP status code.</li><li>headers: HTTP headers as an object, with headers in lowercase.</li></ul>
 
 <p>A topic function.</p>
 
@@ -159,47 +164,47 @@ your context. This lets you omit <code>req</code> completely, for example:</p>
 
 <h2></h2>
 
-<ul><li><p><strong>param</strong>: <em>Object</em>  req Request object</p></li><li><p><strong>return</strong>: <em>Function</em>  Topic function that makes the request</p></li></ul>
+<ul><li><p><strong>param</strong>: <em>Object</em>  req Request object.</p></li><li><p><strong>return</strong>: <em>Function</em>  Topic function that makes the request.</p></li></ul>
 </td>
 <td class="code">
-<pre><code><span class="keyword">function</span> <span class="variable">request</span> (<span class="variable">req</span>) {
+<pre><code><span class="keyword">function</span> <span class="variable">request</span>(<span class="variable">req</span>) {
     <span class="keyword">var</span> <span class="variable">path</span>, <span class="variable">options</span> = {
-        <span class="variable">host</span> : <span class="string">"localhost"</span>,
-        <span class="variable">method</span> : <span class="string">"GET"</span>
+        <span class="variable">host</span>: <span class="string">'localhost'</span>,
+        <span class="variable">method</span>: <span class="string">'GET'</span>
     };
     <span class="keyword">if</span> (<span class="variable">req</span>) {
-        <span class="keyword">if</span> (<span class="string">"url"</span> <span class="keyword">in</span> <span class="variable">req</span>) <span class="variable">path</span> = <span class="variable">options</span>.<span class="variable">path</span> = <span class="variable">req</span>.<span class="variable">url</span>;
-        <span class="keyword">if</span> (<span class="string">"data"</span> <span class="keyword">in</span> <span class="variable">req</span>) <span class="variable">options</span>.<span class="variable">body</span> = <span class="variable">req</span>.<span class="variable">data</span>;
-        <span class="keyword">if</span> (<span class="string">"method"</span> <span class="keyword">in</span> <span class="variable">req</span>) <span class="variable">options</span>.<span class="variable">method</span> = <span class="variable">req</span>.<span class="variable">method</span>;
+        <span class="keyword">if</span> (<span class="string">'url'</span> <span class="keyword">in</span> <span class="variable">req</span>) <span class="variable">path</span> = <span class="variable">options</span>.<span class="variable">path</span> = <span class="variable">req</span>.<span class="variable">url</span>;
+        <span class="keyword">if</span> (<span class="string">'data'</span> <span class="keyword">in</span> <span class="variable">req</span>) <span class="variable">options</span>.<span class="variable">body</span> = <span class="variable">req</span>.<span class="variable">data</span>;
+        <span class="keyword">if</span> (<span class="string">'method'</span> <span class="keyword">in</span> <span class="variable">req</span>) <span class="variable">options</span>.<span class="variable">method</span> = <span class="variable">req</span>.<span class="variable">method</span>;
     }
-    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="variable">lastTopic</span>) {
+    <span class="keyword">return</span> <span class="keyword">function</span>(<span class="variable">lastTopic</span>) {
         <span class="keyword">var</span> <span class="variable">vow</span> = <span class="this">this</span>;
         <span class="comment">// try to find port number</span>
         <span class="keyword">var</span> <span class="variable">port</span> = <span class="class">Array</span>.<span class="variable">prototype</span>.<span class="variable">slice</span>.<span class="variable">call</span>(<span class="variable">arguments</span>, -<span class="number integer">1</span>)[<span class="number integer">0</span>];
         <span class="keyword">if</span> (!<span class="variable">isNaN</span>(<span class="variable">port</span>))
             <span class="variable">options</span>.<span class="variable">port</span> = <span class="variable">port</span>;
-        <span class="keyword">else</span> <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class">Error</span>(<span class="string">"Unable to determine port from topic."</span>);
-        <span class="keyword">if</span> (<span class="string">"function"</span> === <span class="keyword">typeof</span> <span class="variable">path</span>)
+        <span class="keyword">else</span> <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class">Error</span>(<span class="string">'Unable to determine port from topic.'</span>);
+        <span class="keyword">if</span> (<span class="string">'function'</span> === <span class="keyword">typeof</span> <span class="variable">path</span>)
             <span class="variable">options</span>.<span class="variable">path</span> = <span class="variable">path</span>(<span class="variable">lastTopic</span>);
         <span class="keyword">else</span> <span class="keyword">if</span> (!<span class="variable">path</span>)
             <span class="variable">options</span>.<span class="variable">path</span> = <span class="variable">vow</span>.<span class="variable">context</span>.<span class="variable">name</span>.<span class="variable">split</span>(<span class="regexp">/ +/</span>)[<span class="number integer">1</span>];
         <span class="variable">http</span>.<span class="variable">request</span>(
             <span class="variable">options</span>
-        ).<span class="variable">on</span>(<span class="string">"response"</span>, <span class="keyword">function</span> <span class="class">X</span> (<span class="variable">res</span>, <span class="variable">results</span>) {
+        ).<span class="variable">on</span>(<span class="string">'response'</span>, <span class="keyword">function</span> <span class="class">X</span>(<span class="variable">res</span>, <span class="variable">results</span>) {
             <span class="keyword">var</span> <span class="variable">err</span> = <span class="keyword">null</span>;
             <span class="keyword">if</span> (<span class="variable">res</span>.<span class="variable">statusCode</span> === <span class="number integer">302</span>) { <span class="comment">// handle redirects</span>
                 <span class="keyword">if</span> (<span class="variable">options</span>.<span class="variable">_302</span>) {
-                    <span class="variable">err</span> = <span class="string">"Redirect loop"</span>;
+                    <span class="variable">err</span> = <span class="string">'Redirect loop'</span>;
                 } <span class="keyword">else</span> {
                     <span class="variable">options</span>.<span class="variable">path</span> = <span class="variable">res</span>.<span class="variable">headers</span>.<span class="variable">location</span>;
                     <span class="variable">options</span>.<span class="variable">_302</span> = <span class="variable">true</span>;
-                    <span class="keyword">return</span> <span class="variable">http</span>.<span class="variable">request</span>(<span class="variable">options</span>).<span class="variable">on</span>(<span class="string">"response"</span>, <span class="class">X</span>);
+                    <span class="keyword">return</span> <span class="variable">http</span>.<span class="variable">request</span>(<span class="variable">options</span>).<span class="variable">on</span>(<span class="string">'response'</span>, <span class="class">X</span>);
                 }
             }
             <span class="variable">vow</span>.<span class="variable">callback</span>(<span class="variable">err</span>, {
-                <span class="variable">body</span> : <span class="variable">results</span>,
-                <span class="variable">status</span> : <span class="variable">res</span>.<span class="variable">statusCode</span>,
-                <span class="variable">headers</span> : <span class="variable">res</span>.<span class="variable">headers</span>
+                <span class="variable">body</span>: <span class="variable">results</span>,
+                <span class="variable">status</span>: <span class="variable">res</span>.<span class="variable">statusCode</span>,
+                <span class="variable">headers</span>: <span class="variable">res</span>.<span class="variable">headers</span>
             });
         });
     }
@@ -216,14 +221,14 @@ your context. This lets you omit <code>req</code> completely, for example:</p>
 
 <h2></h2>
 
-<ul><li><p><strong>param</strong>: <em>Object</em>  <code>http.Server</code> instance</p></li><li><p><strong>return</strong>: <em>Function</em>  Topic function that starts the server</p></li></ul>
+<ul><li><p><strong>param</strong>: <em>Object</em>  server <code>http.Server</code> instance.</p></li><li><p><strong>return</strong>: <em>Function</em>  Topic function that starts the server.</p></li></ul>
 </td>
 <td class="code">
-<pre><code><span class="keyword">function</span> <span class="variable">httpify</span> (<span class="variable">server</span>) {
+<pre><code><span class="keyword">function</span> <span class="variable">httpify</span>(<span class="variable">server</span>) {
     <span class="keyword">var</span> <span class="variable">port</span> = <span class="variable">getPort</span>();
     <span class="keyword">return</span> <span class="keyword">function</span>() {
         <span class="keyword">var</span> <span class="variable">vows</span> = <span class="this">this</span>;
-        <span class="variable">server</span>.<span class="variable">listen</span>(<span class="variable">port</span>, <span class="string">"127.0.0.1"</span>, <span class="keyword">function</span> (<span class="variable">err</span>) {
+        <span class="variable">server</span>.<span class="variable">listen</span>(<span class="variable">port</span>, <span class="string">'127.0.0.1'</span>, <span class="keyword">function</span>(<span class="variable">err</span>) {
             <span class="variable">vows</span>.<span class="variable">callback</span>(<span class="variable">err</span>, <span class="variable">port</span>);
         });
     };
@@ -240,17 +245,17 @@ your context. This lets you omit <code>req</code> completely, for example:</p>
 
 <h2></h2>
 
-<ul><li><p><strong>param</strong>: <em>Number</em>  status Expected HTTP status code</p></li><li><p><strong>return</strong>: <em>Function</em>  Test function that checks the status</p></li></ul>
+<ul><li><p><strong>param</strong>: <em>Number</em>  status Expected HTTP status code.</p></li><li><p><strong>return</strong>: <em>Function</em>  Test function that checks the status.</p></li></ul>
 </td>
 <td class="code">
-<pre><code><span class="keyword">function</span> <span class="variable">code</span> (<span class="variable">status</span>) {
-    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="variable">lastTopic</span>) {
-        <span class="variable">assert</span>.<span class="variable">strictEqual</span>(<span class="variable">lastTopic</span>.<span class="variable">status</span>, <span class="variable">status</span>, 
-            <span class="string">"Expected "</span> + <span class="variable">status</span>
-                  + <span class="string">" "</span> + <span class="class">STATUS_CODES</span>[<span class="variable">status</span>]
-                  + <span class="string">", received: "</span> + <span class="variable">lastTopic</span>.<span class="variable">status</span>
-                  + <span class="string">" "</span> + <span class="class">STATUS_CODES</span>[<span class="variable">lastTopic</span>.<span class="variable">status</span>]
-                  + <span class="string">".\n"</span> + <span class="variable">lastTopic</span>.<span class="variable">body</span>
+<pre><code><span class="keyword">function</span> <span class="variable">code</span>(<span class="variable">status</span>) {
+    <span class="keyword">return</span> <span class="keyword">function</span>(<span class="variable">lastTopic</span>) {
+        <span class="variable">assert</span>.<span class="variable">strictEqual</span>(<span class="variable">lastTopic</span>.<span class="variable">status</span>, <span class="variable">status</span>,
+            <span class="string">'Expected '</span> + <span class="variable">status</span> +
+                  <span class="string">' '</span> + <span class="class">STATUS_CODES</span>[<span class="variable">status</span>] +
+                  <span class="string">', received: '</span> + <span class="variable">lastTopic</span>.<span class="variable">status</span> +
+                  <span class="string">' '</span> + <span class="class">STATUS_CODES</span>[<span class="variable">lastTopic</span>.<span class="variable">status</span>] +
+                  <span class="string">'.\n'</span> + <span class="variable">lastTopic</span>.<span class="variable">body</span>
         );
     };
 }</code></pre>
@@ -263,10 +268,10 @@ your context. This lets you omit <code>req</code> completely, for example:</p>
 </td>
 <td class="code">
 <pre><code><span class="variable">module</span>.<span class="variable">exports</span> = {
-    <span class="variable">code</span> : <span class="variable">code</span>,
-    <span class="variable">request</span> : <span class="variable">request</span>,
-    <span class="variable">httpify</span> : <span class="variable">httpify</span>
-}; 
+    <span class="variable">code</span>: <span class="variable">code</span>,
+    <span class="variable">request</span>: <span class="variable">request</span>,
+    <span class="variable">httpify</span>: <span class="variable">httpify</span>
+};
 </code></pre>
 </td>
 </tr>	</body>
