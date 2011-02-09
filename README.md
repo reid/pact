@@ -10,6 +10,10 @@ Works with [Node.js](http://nodejs.org/) v0.2.5 and later.
 
 <http://reid.github.com/pact/>
 
+## Installation
+
+    npm i pact
+
 ## Example
 
     // Pact works with http.Server instances.
