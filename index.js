@@ -113,10 +113,11 @@ function request(req) {
  * A topic function.
  *
  * @param {Object} server `http.Server` instance.
+ * @param {Number} port Optional. Port to listen on.
  * @return {Function} Topic function that starts the server.
  */
-function httpify(server) {
-    var port = getPort();
+function httpify(server, port) {
+    port = port || getPort();
     return function() {
         var vows = this;
         server.listen(port, '127.0.0.1', function(err) {

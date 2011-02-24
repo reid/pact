@@ -11,9 +11,11 @@ var pact = require("./index");
 
 var http = require("http");
 
-function mockServer (cb) {
+function mockServer (cb, port) {
     return function () {
-        pact.httpify(http.createServer(cb)).apply(this); 
+        pact.httpify(http.createServer(function (req, res) {
+            cb(req, res, port);
+        }), port).apply(this);
     }
 }
 
@@ -58,6 +60,31 @@ vows.describe("Pact").addBatch({
             },
             "contains valid data" : function (topic) {
                 assert.strictEqual(topic.body, "tango");
+            }
+        }
+    },
+    "A 302 redirecting server with an absolute path" : {
+        topic : mockServer(function (req, res, port) {
+            if (req.url === "/ok") {
+                res.writeHead(200, headers);
+                res.end("foxtrot");
+            } else if (req.url == "/") {
+                res.writeHead(302, {
+                    "Location" : "http://127.0.0.1:" + port + "/ok"
+                });
+                res.end();
+            } else {
+                res.writeHead(404, headers);
+                res.end("Invalid path: " + req.url);
+            }
+        }, 8091),
+        "when / is requested" : {
+            topic : pact.request(),
+            "should be 200 instead of 302" : function (topic) {
+                assert.strictEqual(topic.status, 200);
+            },
+            "contains valid data" : function (topic) {
+                assert.strictEqual(topic.body, "foxtrot");
             }
         }
     }
