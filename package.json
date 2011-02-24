@@ -6,7 +6,7 @@
     "HTTP",
     "test"
   ],
-  "version": "0.1.0",
+  "version": "0.1.1pre",
   "author": "Reid Burke <me@reidburke.com> (http://reidburke.com/)",
   "main": "index",
   "directories": {
