@@ -1,6 +1,6 @@
 # Pact
 
-A collection of [Vows](http://vowsjs.org) macros for easy HTTP server testing.
+A collection of [Vows][] macros for easy HTTP server testing.
 
 Tastes great with [Express](http://expressjs.com) and [Connect](http://senchalabs.github.com/connect/).
 
@@ -70,6 +70,12 @@ Works with [Node.js](http://nodejs.org/) v0.2.5 and later.
         }
     }).export(module);
 
+## Run self-tests
+
+Requires [Vows][].
+
+    make test
+
 ## About
 
 Authored by [Reid Burke](http://github.com/reid), copyright Yahoo! Inc., and provided under the BSD license. See LICENSE file.
@@ -81,3 +87,5 @@ Pact is used at Yahoo! for testing Node.js servers. It's based on the embedded V
 ## Bugs
 
 Submit bugs and pull requests to [Pact on GitHub](http://github.com/reid/pact).
+
+[Vows]: http://vowsjs.org/
