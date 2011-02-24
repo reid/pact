@@ -1,3 +1,6 @@
+test:
+	vows test.js
+
 deploy:
 	scp index.html rburke@produce.yahoo.com:public/yui/pact.html
 
@@ -10,4 +13,4 @@ doc:
 		--ribbon "http://github.com/reid/pact" \
 		index.js > index.html
 
-.PHONY: deploy doc
+.PHONY: test deploy lint doc
