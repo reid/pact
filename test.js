@@ -4,88 +4,89 @@
  * Licensed under the BSD license.
  */
 
-var vows = require("vows");
-var assert = require("assert");
+var vows = require('vows');
+var assert = require('assert');
 
-var pact = require("./index");
+var pact = require('./index');
 
-var http = require("http");
+var http = require('http');
 
-function mockServer (cb, port) {
-    return function () {
-        pact.httpify(http.createServer(function (req, res) {
+function mockServer(cb, port) {
+    return function() {
+        pact.httpify(http.createServer(function(req, res) {
             cb(req, res, port);
         }), port).apply(this);
     }
 }
 
-var headers = { "Content-Type" : "text/plain" };
+var headers = { 'Content-Type' : 'text/plain' };
 
-vows.describe("Pact").addBatch({
-    "A simple server" : {
-        topic : mockServer(function (req, res) {
+vows.describe('Pact').addBatch({
+    'A simple server' : {
+        topic: mockServer(function(req, res) {
             res.writeHead(200, headers);
-            res.end("ok!");
+            res.end('ok!');
         }),
-        "when / is requested" : {
+        'when / is requested' : {
             topic: pact.request(),
-            "should succeed" : function (topic) {
+            'should succeed' : function(topic) {
                 assert.strictEqual(topic.status, 200);
             },
-            "contains correct header" : function (topic) {
-                assert.include(topic.headers, "content-type");
-                assert.strictEqual(topic.headers["content-type"], headers["Content-Type"]);
+            'contains correct header' : function(topic) {
+                assert.include(topic.headers, 'content-type');
+                assert.strictEqual(topic.headers['content-type'],
+                    headers['Content-Type']);
             },
-            "contains valid data" : function (topic) {
-                assert.strictEqual(topic.body, "ok!");
+            'contains valid data' : function(topic) {
+                assert.strictEqual(topic.body, 'ok!');
             }
         }
     },
-    "A 302 redirecting server with a relative path" : {
-        topic : mockServer(function (req, res) {
-            if (req.url === "/ok") {
+    'A 302 redirecting server with a relative path' : {
+        topic: mockServer(function(req, res) {
+            if (req.url === '/ok') {
                 res.writeHead(200, headers);
-                res.end("tango");
+                res.end('tango');
             } else {
                 res.writeHead(302, {
-                    "Location" : "/ok"
+                    'Location' : '/ok'
                 });
                 res.end();
             }
         }),
-        "when / is requested" : {
-            topic : pact.request(),
-            "should be 200 instead of 302" : function (topic) {
+        'when / is requested' : {
+            topic: pact.request(),
+            'should be 200 instead of 302' : function(topic) {
                 assert.strictEqual(topic.status, 200);
             },
-            "contains valid data" : function (topic) {
-                assert.strictEqual(topic.body, "tango");
+            'contains valid data' : function(topic) {
+                assert.strictEqual(topic.body, 'tango');
             }
         }
     },
-    "A 302 redirecting server with an absolute path" : {
-        topic : mockServer(function (req, res, port) {
-            if (req.url === "/ok") {
+    'A 302 redirecting server with an absolute path' : {
+        topic: mockServer(function(req, res, port) {
+            if (req.url === '/ok') {
                 res.writeHead(200, headers);
-                res.end("foxtrot");
-            } else if (req.url == "/") {
+                res.end('foxtrot');
+            } else if (req.url == '/') {
                 res.writeHead(302, {
-                    "Location" : "http://127.0.0.1:" + port + "/ok"
+                    'Location' : 'http://127.0.0.1:' + port + '/ok'
                 });
                 res.end();
             } else {
                 res.writeHead(404, headers);
-                res.end("Invalid path: " + req.url);
+                res.end('Invalid path: ' + req.url);
             }
         }, 8091),
-        "when / is requested" : {
-            topic : pact.request(),
-            "should be 302" : function (topic) {
+        'when / is requested' : {
+            topic: pact.request(),
+            'should be 302' : function(topic) {
                 assert.strictEqual(topic.status, 302);
             },
-            "contains Location with empty body" : function (topic) {
-                assert.include(topic.headers, "location");
-                assert.strictEqual(topic.body, "");
+            'contains Location with empty body' : function(topic) {
+                assert.include(topic.headers, 'location');
+                assert.strictEqual(topic.body, '');
             }
         }
     }
