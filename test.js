@@ -80,11 +80,12 @@ vows.describe("Pact").addBatch({
         }, 8091),
         "when / is requested" : {
             topic : pact.request(),
-            "should be 200 instead of 302" : function (topic) {
-                assert.strictEqual(topic.status, 200);
+            "should be 302" : function (topic) {
+                assert.strictEqual(topic.status, 302);
             },
-            "contains valid data" : function (topic) {
-                assert.strictEqual(topic.body, "foxtrot");
+            "contains Location with empty body" : function (topic) {
+                assert.include(topic.headers, "location");
+                assert.strictEqual(topic.body, "");
             }
         }
     }

@@ -31,7 +31,7 @@ function getPort() {
  * according to what's specified in the provided `req`
  * object.
  *
- * Any 302 redirects will be followed.
+ * Relative 302 redirects will be followed.
  *
  * You can specify:
  *
@@ -91,9 +91,13 @@ function request(req) {
                 if (options._302) {
                     err = 'Redirect loop';
                 } else {
-                    options.path = res.headers.location;
-                    options._302 = true;
-                    return http.request(options).on('response', X);
+                    var location = res.headers.location;
+                    if (location.indexOf('/') === 0) {
+                        // relative path, don't handle absolute
+                        options.path = location;
+                        options._302 = true;
+                        return http.request(options).on('response', X);
+                    }
                 }
             }
             vow.callback(err, {
