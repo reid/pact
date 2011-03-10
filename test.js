@@ -16,7 +16,7 @@ function mockServer(cb, port) {
         pact.httpify(http.createServer(function(req, res) {
             cb(req, res, port);
         }), port).apply(this);
-    }
+    };
 }
 
 var headers = { 'Content-Type' : 'text/plain' };
@@ -39,6 +39,30 @@ vows.describe('Pact').addBatch({
             },
             'contains valid data' : function(topic) {
                 assert.strictEqual(topic.body, 'ok!');
+            }
+        },
+    },
+    'A JSON API' : {
+        topic: mockServer(function(req, res) {
+            if (req.url === '/') {
+                res.writeHead(200, {'Content-Type': 'application/json'});
+            } else if (req.url == '/with-charset') {
+                res.writeHead(200, {'Content-Type': 'application/json;charset=utf-8'});
+            }
+            res.end('{"foo": "bar"}');
+        }),
+        'when / is requested' : {
+            topic: pact.request(),
+            'contains a parsed JSON response object' : function(topic) {
+                assert.isObject(topic.body);
+                assert.strictEqual(topic.body.foo, 'bar');
+            }
+        },
+        'when /with-charset is requested' : {
+            topic: pact.request(),
+            'contains a parsed JSON response object' : function(topic) {
+                assert.isObject(topic.body);
+                assert.strictEqual(topic.body.foo, 'bar');
             }
         }
     },
