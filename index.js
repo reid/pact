@@ -39,6 +39,9 @@ function getPort() {
  *   a context.
  * - method: Defaults to GET.
  * - data: Request body for POST.
+ * - headers: HTTP request headers object.
+ *
+ * These are all optional.
  *
  * Instead of specifying `url` in `req`, you can make it the second word of
  * your context. This lets you omit `req` completely, for example:
@@ -71,6 +74,7 @@ function request(req) {
         if ('url' in req) path = options.path = req.url;
         if ('data' in req) options.body = req.data;
         if ('method' in req) options.method = req.method;
+        if ('headers' in req) options.headers = req.headers;
     }
     return function(lastTopic) {
         var vow = this;
