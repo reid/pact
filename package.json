@@ -6,8 +6,11 @@
     "HTTP",
     "test"
   ],
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Reid Burke <me@reidburke.com> (http://reidburke.com/)",
+  "contributors" : [
+    "Ryan Grove <ryan@wonko.com>"
+  ],
   "main": "index",
   "directories": {
     "lib": "./lib"
