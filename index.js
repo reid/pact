@@ -15,7 +15,7 @@ var STATUS_CODES = require('http').STATUS_CODES;
 /**
  * A starting server port number.
  */
-var _port = 8099;
+var _port = 19100;
 
 /**
  * Factory for server port numbers.
@@ -23,7 +23,7 @@ var _port = 8099;
  * @return {Number} port A new port number.
  */
 function getPort() {
-    return _port++;
+    return ++_port;
 }
 
 /**
