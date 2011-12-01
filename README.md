@@ -1,8 +1,8 @@
 # Pact
 
-A collection of [Vows][] macros for easy HTTP server testing.
+[![Build Status](https://secure.travis-ci.org/reid/pact.png)](http://travis-ci.org/reid/pact)
 
-Tastes great with [Express](http://expressjs.com) and [Connect](http://senchalabs.github.com/connect/).
+A collection of [Vows][] macros for easy HTTP server testing.
 
 Works with [Node.js](http://nodejs.org/) v0.2.5 and later.
 
