@@ -1,5 +1,5 @@
 test:
-	vows test.js
+	npm test
 
 deploy:
 	scp index.html rburke@produce.yahoo.com:public/yui/pact.html
