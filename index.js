@@ -106,6 +106,7 @@ function request(req) {
             }
             vow.callback(err, {
                 body: results,
+                options: options,
                 status: res.statusCode,
                 headers: res.headers
             });
